@@ -106,7 +106,7 @@ $conn->close();
 
 <div class="container">
     <div class="row">
-		<div class="col-12 col-md-4 offset-md-4 col-lg-4 offset-lg-4 wrapper">
+		<div class="col-12 col-md-6 offset-md-3 col-lg-6 offset-lg-3 wrapper">
 	        <canvas id="line-chart" width="500" height="400" style="margin-bottom: 30px"></canvas>	
 	        
 	        <div id="slider">
@@ -135,7 +135,7 @@ $conn->close();
                             <td><span id="best"></span></td>
                         </tr>
                         <tr>
-                            <td>Progress</td>
+                            <td>Lost</td>
                             <td class="separator">:</td>
                             <td><span id="progress"></span> kg</td>
                         </tr>
@@ -268,34 +268,34 @@ $conn->close();
         // underweight
         let satuBMIMewakili = 7.35294117647;
         persen = ((bmi-15)*satuBMIMewakili);
-        $('#bmi_n').html((Math.round(bmi * 10) / 10).toFixed(1));
         $('#bmi_c').html('Underweight');
       }else if(bmi >= 18.5 && bmi <= 22.9) {
         // healthy
         let satuBMIMewakili = 5.68181818182;
         persen = 25 + ((bmi-18.5)*satuBMIMewakili);
-        $('#bmi_n').html((Math.round(bmi * 10) / 10).toFixed(1));
         $('#bmi_c').html('Healthy');
       }else if(bmi > 22.9 && bmi <= 24.9) {
         // overweight
         let satuBMIMewakili = 13.1578947368;
         persen = 50 + ((bmi-23)*satuBMIMewakili);
-        $('#bmi_n').html((Math.round(bmi * 10) / 10).toFixed(1));
         $('#bmi_c').html('Overweight');
       }else if(bmi > 24.9 && bmi <= 40) {
         // obese
         let satuBMIMewakili = 2.5;
         persen = 75 + ((bmi-25)*satuBMIMewakili);
-        $('#bmi_n').html(Number((Math.round(bmi * 10) / 10).toFixed(1)));
         $('#bmi_c').html('Obese');
       }
+      
+      $('#bmi_n').html(Math.round((bmi + Number.EPSILON) * 10) / 10);
       
       $('#weight_n').html(lastWeight + ' kg');
       $('#best').html(Array.min(weight) + ' kg');
       $('#strike').html(strike);
       $('#best_strike').html(bestStrike);
-      $('#progress').html(Number(Math.round(startWeight - lastWeight).toFixed(2)));  
-      $('#to_goal').html(Number(Math.round(lastWeight - goal).toFixed(2)));
+      $('#progress').html(Math.round(((startWeight - lastWeight) + Number.EPSILON) * 100) / 100);  
+      $('#to_goal').html(Math.round(((lastWeight - goal) + Number.EPSILON) * 100) / 100);
+
+      console.log(startWeight - lastWeight);
     
       persen = persen + '%';
 

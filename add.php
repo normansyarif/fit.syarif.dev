@@ -47,8 +47,16 @@ if($value) {
 		echo 'Comparison values are empty';
 		die();
 	}else{
-		$targets = [$value['weight'], $value['real_target'], $value['initial_target']];
-		$real_target = min($targets) * 0.9989645;
+	    $real_target = 0;
+	    $target = [$value['weight'], $value['initial_target']];
+	    $target = min($target);
+	    
+	    if($target <= round($value['real_target'], 2)) {
+	        $real_target = $target * 0.9989645;
+	    }else{
+	        $real_target = $value['real_target'];
+	    }
+	    
 	}
 }else{
 	echo 'Error';

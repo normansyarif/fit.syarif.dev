@@ -95,6 +95,10 @@ $conn->close();
       margin-right: -15px;
       margin-left: -15px;
     }
+    .separator {
+        padding-left: 3px;
+        padding-right: 5px;
+    }
   </style>
 
 </head>
@@ -113,10 +117,61 @@ $conn->close();
                 <div class="bg4"></div>
               </div>
             </div>
-            <p style="text-align: center;margin-top: 30px">Current Weight: <span id="weight_n"></span></p>
-            <p style="text-align: center">Your Best: <span id="best"></span></p>
-            <p style="text-align: center">BMI: <span id="bmi_n"></span></p>
-             <p style="text-align: center;font-weight: bold; margin-bottom: 50px" id="bmi_c"></p>
+            
+            <div class="row" style="margin: 30px 10px 0 10px">
+                <div class="col-12">
+                    <label style="font-weight: bold; font-style: italic">Stats</label>
+                </div>
+                <div class="col-6">
+                    <table>
+                        <tr>
+                            <td>Weight</td>
+                            <td class="separator">:</td>
+                            <td><span id="weight_n"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Your best</td>
+                            <td class="separator">:</td>
+                            <td><span id="best"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Progress</td>
+                            <td class="separator">:</td>
+                            <td><span id="progress"></span> kg</td>
+                        </tr>
+                        <tr>
+                            <td>To goal</td>
+                            <td class="separator">:</td>
+                            <td><span id="to_goal"></span> kg</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table>
+                        <tr>
+                            <td>Strike</td>
+                            <td class="separator">:</td>
+                            <td><span id="strike"></span> d</td>
+                        </tr>
+                        <tr>
+                            <td>Best strike</td>
+                            <td class="separator">:</td>
+                            <td><span id="best_strike"></span> d</td>
+                        </tr>
+                        <tr>
+                            <td>BMI</td>
+                            <td class="separator">:</td>
+                            <td> <span id="bmi_n"></span></td>
+                        </tr>
+                        <tr>
+                            <td>You are</td>
+                            <td class="separator">:</td>
+                            <td><span style="font-weight: bold" id="bmi_c"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
         </div>
     </div>
     
@@ -159,10 +214,33 @@ $conn->close();
     Array.min = function( array ){
         return Math.min.apply( Math, array );
     };
+    
+    let startWeight = 94;
+    let goal = 64;
+    let tall = 1.63;
+    
+    let weightStrike = weight[0];
+    let strike = 0;
+    let bestStrike = 0;
+    
+    
+    for(let i = 1; i < weight.length; i++) {
+        if(weight[i] < weightStrike) {
+            strike++;
+            weightStrike = weight[i];
+            
+            if(strike > bestStrike) {
+                bestStrike = strike;
+            }
+            
+        }else{
+            strike = 0;
+        }
+    }
 
       let lastWeight = weight[weight.length - 1];
 
-      let bmi = lastWeight / (1.63*1.63);
+      let bmi = lastWeight / (tall*tall);
 
       console.log(bmi);
 
@@ -208,13 +286,17 @@ $conn->close();
         // obese
         let satuBMIMewakili = 2.5;
         persen = 75 + ((bmi-25)*satuBMIMewakili);
-        $('#bmi_n').html((Math.round(bmi * 10) / 10).toFixed(1));
+        $('#bmi_n').html(Number((Math.round(bmi * 10) / 10).toFixed(1)));
         $('#bmi_c').html('Obese');
       }
       
       $('#weight_n').html(lastWeight + ' kg');
       $('#best').html(Array.min(weight) + ' kg');
-
+      $('#strike').html(strike);
+      $('#best_strike').html(bestStrike);
+      $('#progress').html(Number(Math.round(startWeight - lastWeight).toFixed(2)));  
+      $('#to_goal').html(Number(Math.round(lastWeight - goal).toFixed(2)));
+    
       persen = persen + '%';
 
       $('.ui-slider-handle').css('left', persen);

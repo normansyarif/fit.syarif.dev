@@ -54,11 +54,11 @@ $conn->close();
       border: none !important;
     }
 
-    .bg1, .bg2, .bg3, .bg4, .bg5 { 
+    .bg1, .bg2, .bg3, .bg4, .bg0 { 
       -webkit-box-flex: 0;
-      -ms-flex: 0 0 25%;
-      flex: 0 0 25%;
-      max-width: 25%;
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
       height: 10px; 
       position: relative;
       width: 100%;
@@ -66,10 +66,14 @@ $conn->close();
       padding-right: 15px;
       padding-left: 15px;
     }
-
-    .bg1 { 
+    
+    .bg0 {
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
+        background-color: #7c00a0;
+    }
+
+    .bg1 { 
         background-color: #2196F3; 
         
     }
@@ -111,6 +115,7 @@ $conn->close();
 	        
 	        <div id="slider">
               <div class="r">
+                <div class="bg0"></div>
                 <div class="bg1"></div>
                 <div class="bg2"></div>
                 <div class="bg3"></div>
@@ -164,9 +169,7 @@ $conn->close();
                             <td> <span id="bmi_n"></span></td>
                         </tr>
                         <tr>
-                            <td>You are</td>
-                            <td class="separator">:</td>
-                            <td><span style="font-weight: bold" id="bmi_c"></span></td>
+                            <td colspan="3">You are <span style="font-weight: bold" id="bmi_c"></span></td>
                         </tr>
                     </table>
                 </div>
@@ -264,26 +267,31 @@ $conn->close();
 
       let persen = 0;
 
-      if(bmi >= 0 && bmi < 18.5) {
-        // underweight
-        let satuBMIMewakili = 7.35294117647;
-        persen = ((bmi-15)*satuBMIMewakili);
-        $('#bmi_c').html('Underweight');
-      }else if(bmi >= 18.5 && bmi <= 22.9) {
-        // healthy
-        let satuBMIMewakili = 5.68181818182;
-        persen = 25 + ((bmi-18.5)*satuBMIMewakili);
+      if(bmi >= 9 && bmi < 17) {
+        // underweight 2
+        let satuBMIMewakili = 2.53164556962;
+        persen = ((bmi-9)*satuBMIMewakili);
+        $('#bmi_c').html('Underweight II');
+      }else if(bmi >= 17 && bmi <= 18.4) {
+        // underweight 1
+        let satuBMIMewakili = 14.2857142857;
+        persen = 20 + ((bmi-17)*satuBMIMewakili);
+        $('#bmi_c').html('Underweight I');
+      }else if(bmi > 18.4 && bmi <= 25) {
+        // normal
+        let satuBMIMewakili = 3.07692307692;
+        persen = 40 + ((bmi-18.5)*satuBMIMewakili);
         $('#bmi_c').html('Healthy');
-      }else if(bmi > 22.9 && bmi <= 24.9) {
-        // overweight
-        let satuBMIMewakili = 13.1578947368;
-        persen = 50 + ((bmi-23)*satuBMIMewakili);
-        $('#bmi_c').html('Overweight');
-      }else if(bmi > 24.9 && bmi <= 40) {
-        // obese
-        let satuBMIMewakili = 2.5;
-        persen = 75 + ((bmi-25)*satuBMIMewakili);
-        $('#bmi_c').html('Obese');
+      }else if(bmi > 25 && bmi <= 27) {
+          // obese 1
+          let satuBMIMewakili = 10.5263157895;
+          persen = 60 + ((bmi-25.1)*satuBMIMewakili);
+          $('#bmi_c').html('Obese I');
+      }else if(bmi > 27 && bmi <= 35) {
+        // obese 2
+        let satuBMIMewakili = 2.53164556962;
+        persen = 80 + ((bmi-27.1)*satuBMIMewakili);
+        $('#bmi_c').html('Obese II');
       }
       
       $('#bmi_n').html(Math.round((bmi + Number.EPSILON) * 10) / 10);

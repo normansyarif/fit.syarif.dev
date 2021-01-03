@@ -78,14 +78,16 @@ for($i = 1; $i > -2; $i--) {
 	if($temp['weight'] != null) {
 		$temp['bmi_val'] = round($temp['weight'] / (1.63*1.63), 1);
 
-		if($temp['bmi_val'] < 18.5) {
-			$temp['bmi_cat'] = 'Underweight';
-		}elseif($temp['bmi_val'] >= 18.5 && $temp['bmi_val'] <= 22.9) {
+		if($temp['bmi_val'] < 17) {
+			$temp['bmi_cat'] = 'Underweight II';
+		}elseif($temp['bmi_val'] >= 17 && $temp['bmi_val'] <= 18.4) {
+		    $temp['bmi_cat'] = 'Underweight I';
+		}elseif($temp['bmi_val'] >= 18.5 && $temp['bmi_val'] <= 25) {
 			$temp['bmi_cat'] = 'Healthy';
-		}elseif($temp['bmi_val'] > 22.9 && $temp['bmi_val'] <= 24.9) {
-			$temp['bmi_cat'] = 'Overweight';
-		}elseif($temp['bmi_val'] > 24.9) {
-			$temp['bmi_cat'] = 'Obese';
+		}elseif($temp['bmi_val'] > 25 && $temp['bmi_val'] <= 27) {
+			$temp['bmi_cat'] = 'Obese I';
+		}elseif($temp['bmi_val'] > 27) {
+			$temp['bmi_cat'] = 'Obese II';
 		}
 	}
 

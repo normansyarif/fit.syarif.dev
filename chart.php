@@ -36,9 +36,9 @@ $conn->close();
 <!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Weight Tracking</title>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weight Tracking</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="ui/jquery-ui.css">
@@ -103,6 +103,31 @@ $conn->close();
         padding-left: 3px;
         padding-right: 5px;
     }
+    
+    /*Override*/
+    .r {
+      margin-left: 0 !important;
+    }
+    
+    .ui-state-default {
+      border: 2px solid white  !important;
+      background: cusotm !important;
+    }
+    
+    .ui-slider .ui-slider-handle {
+      width: 0.5em !important;
+      height: 2em !important;
+    }
+    
+    .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+      border-radius: 10px !important;
+    }
+    
+    .ui-slider-horizontal .ui-slider-handle {
+      top: -0.65em !important;
+      pointer-events: none !important;
+      margin: 0 !important;
+    }
   </style>
 
 </head>
@@ -110,10 +135,10 @@ $conn->close();
 
 <div class="container">
     <div class="row">
-		<div class="col-12 col-md-6 offset-md-3 col-lg-6 offset-lg-3 wrapper">
-	        <canvas id="line-chart" width="500" height="400" style="margin-bottom: 30px"></canvas>	
-	        
-	        <div id="slider">
+    <div class="col-12 col-md-6 offset-md-3 col-lg-6 offset-lg-3 wrapper">
+          <canvas id="line-chart" width="500" height="400" style="margin-bottom: 30px"></canvas>  
+          
+          <div id="slider">
               <div class="r">
                 <div class="bg0"></div>
                 <div class="bg1"></div>
@@ -271,27 +296,32 @@ $conn->close();
         // underweight 2
         let satuBMIMewakili = 2.53164556962;
         persen = ((bmi-9)*satuBMIMewakili);
-        $('#bmi_c').html('Underweight II');
+        $('#bmi_c').html('Overly thin');
+        $('.ui-state-default').css('background', '#7c00a0');
       }else if(bmi >= 17 && bmi <= 18.4) {
         // underweight 1
         let satuBMIMewakili = 14.2857142857;
         persen = 20 + ((bmi-17)*satuBMIMewakili);
-        $('#bmi_c').html('Underweight I');
+        $('#bmi_c').html('Underweight');
+        $('.ui-state-default').css('background', '#2196F3');
       }else if(bmi > 18.4 && bmi <= 25) {
         // normal
         let satuBMIMewakili = 3.07692307692;
         persen = 40 + ((bmi-18.5)*satuBMIMewakili);
         $('#bmi_c').html('Healthy');
+        $('.ui-state-default').css('background', '#388E3C');
       }else if(bmi > 25 && bmi <= 27) {
           // obese 1
           let satuBMIMewakili = 10.5263157895;
           persen = 60 + ((bmi-25.1)*satuBMIMewakili);
-          $('#bmi_c').html('Obese I');
+          $('#bmi_c').html('Overweight');
+          $('.ui-state-default').css('background', '#FBC02D');
       }else if(bmi > 27 && bmi <= 35) {
         // obese 2
         let satuBMIMewakili = 2.53164556962;
         persen = 80 + ((bmi-27.1)*satuBMIMewakili);
-        $('#bmi_c').html('Obese II');
+        $('#bmi_c').html('Obese');
+        $('.ui-state-default').css('background', '#E64A19');
       }
       
       $('#bmi_n').html(Math.round((bmi + Number.EPSILON) * 10) / 10);

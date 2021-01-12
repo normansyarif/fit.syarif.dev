@@ -49,6 +49,7 @@
                     <ul>
                         <li>Breakfast hours at 9am to 12pm</li>
                         <li>Lunch hours at 12pm to 3pm</li>
+                        <li>No dinner</li>
                         <li>Drink only water</li>
                         <li>Only one cheat day is allowed per week (< 1,500 kcal)</li>
                         <li>Run 10 minutes more on cheat day</li>

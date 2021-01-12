@@ -289,7 +289,7 @@ $conn->close();
 						endif;
 					?>
 					
-					<a href="https://rules.syarif.dev" style="margin-left: 10px; margin-right: 10px">Rules</a>
+					<a href="glowup.php" style="margin-left: 10px; margin-right: 10px">Rules</a>
 					
 					<a href="index.php?date=<?php echo date('Y-m-d', strtotime('+1 day', strtotime($_GET['date']))) ?>" style="margin-left: 10px">Next</a>
 				</div>

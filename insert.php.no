@@ -14,17 +14,17 @@ if ($conn->connect_error) {
 
 $data = [];
 
-$weight = 94;
-$date = '2020-12-25';
+$weight = 90;
+$date = '2021-01-15';
 
 
-for($i = 0; $i < 372; $i++) {
+for($i = 0; $i < 351; $i++) {
 	$temp = [];
 	$dateToStore = date('Y-m-d', strtotime('+'. $i .' day', strtotime($date)));
 	$temp['date'] = $dateToStore;
 
 	if($i != 0) {
-	    $weightToStore = $weight * 0.9989645;
+	    $weightToStore = $weight * 0.999114237;
 	}else{
 	    $weightToStore = $weight;
 	}

@@ -170,7 +170,7 @@ $conn->close();
                             <td><span id="progress"></span> kg</td>
                         </tr>
                         <tr>
-                            <td>To goal</td>
+                            <td>Still to go</td>
                             <td class="separator">:</td>
                             <td><span id="to_goal"></span> kg</td>
                         </tr>
@@ -207,7 +207,11 @@ $conn->close();
 
   <script type="text/javascript">
     $(function() { 
-
+        
+      let goal = 66;
+      let tall = 163;
+      
+      tall /= 100;
       let date = <?php echo json_encode(array_column($data, 'date')) ?>;
       let weight = <?php echo json_encode(array_column($data, 'weight')) ?>;
       let initial_target = <?php echo json_encode(array_column($data, 'initial_target')) ?>;
@@ -243,28 +247,28 @@ $conn->close();
         return Math.min.apply( Math, array );
     };
     
-    let startWeight = 94;
-    let goal = 64;
-    let tall = 1.63;
+    let startWeight = weight[0];
     
     let weightStrike = weight[0];
     let strike = 0;
     let bestStrike = 0;
     
-    
-    for(let i = 1; i < weight.length; i++) {
-        if(weight[i] < weightStrike) {
-            strike++;
-            weightStrike = weight[i];
-            
-            if(strike > bestStrike) {
-                bestStrike = strike;
+    if(weight.length > 1) {
+        for(let i = 1; i < weight.length; i++) {
+            if(weight[i] < weightStrike) {
+                strike++;
+                
+                if(strike > bestStrike) {
+                    bestStrike = strike;
+                }
+                
+            }else{
+                strike = 0;
             }
-            
-        }else{
-            strike = 0;
+            weightStrike = weight[i];
         }
     }
+    
 
       let lastWeight = weight[weight.length - 1];
 

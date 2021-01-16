@@ -14,17 +14,17 @@ if ($conn->connect_error) {
 
 $data = [];
 
-$weight = 90;
-$date = '2021-01-15';
+$weight = 90.2;
+$date = '2021-01-16';
+$stop = '2021-02-01';
 
-
-for($i = 0; $i < 351; $i++) {
+for($i = 0; $i <= 366; $i++) {
 	$temp = [];
 	$dateToStore = date('Y-m-d', strtotime('+'. $i .' day', strtotime($date)));
 	$temp['date'] = $dateToStore;
 
 	if($i != 0) {
-	    $weightToStore = $weight * 0.999114237;
+	    $weightToStore = $weight * 0.99910535;
 	}else{
 	    $weightToStore = $weight;
 	}
@@ -42,7 +42,10 @@ for($i = 0; $i < 351; $i++) {
 	} else {
 	  echo 'error';
 	}
-
+	
+	if($dateToStore == $stop) {
+	    break;
+	}
 	
 }
 

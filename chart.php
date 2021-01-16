@@ -36,9 +36,9 @@ $conn->close();
 <!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weight Tracking</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Weight Tracking</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="ui/jquery-ui.css">
@@ -106,27 +106,27 @@ $conn->close();
     
     /*Override*/
     .r {
-      margin-left: 0 !important;
+    	margin-left: 0 !important;
     }
     
     .ui-state-default {
-      border: 2px solid white  !important;
-      background: cusotm !important;
+    	border: 2px solid white  !important;
+    	background: cusotm !important;
     }
     
     .ui-slider .ui-slider-handle {
-      width: 0.5em !important;
-      height: 2em !important;
+    	width: 0.5em !important;
+    	height: 2em !important;
     }
     
     .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
-      border-radius: 10px !important;
+    	border-radius: 10px !important;
     }
     
     .ui-slider-horizontal .ui-slider-handle {
-      top: -0.65em !important;
-      pointer-events: none !important;
-      margin: 0 !important;
+    	top: -0.65em !important;
+    	pointer-events: none !important;
+    	margin: 0 !important;
     }
   </style>
 
@@ -135,10 +135,10 @@ $conn->close();
 
 <div class="container">
     <div class="row">
-    <div class="col-12 col-md-6 offset-md-3 col-lg-6 offset-lg-3 wrapper">
-          <canvas id="line-chart" width="500" height="400" style="margin-bottom: 30px"></canvas>  
-          
-          <div id="slider">
+		<div class="col-12 col-md-6 offset-md-3 col-lg-6 offset-lg-3 wrapper">
+	        <canvas id="line-chart" width="500" height="400" style="margin-bottom: 30px"></canvas>	
+	        
+	        <div id="slider">
               <div class="r">
                 <div class="bg0"></div>
                 <div class="bg1"></div>
@@ -178,10 +178,15 @@ $conn->close();
                 </div>
                 <div class="col-6">
                     <table>
-                        <tr>
-                            <td>Strike</td>
+                        <tr style="color: green">
+                            <td>Lose strike</td>
                             <td class="separator">:</td>
                             <td><span id="strike"></span> d</td>
+                        </tr>
+                        <tr style="color: red">
+                            <td>Gain strike</td>
+                            <td class="separator">:</td>
+                            <td><span id="gain-strike"></span> d</td>
                         </tr>
                         <tr>
                             <td>Best strike</td>
@@ -193,10 +198,10 @@ $conn->close();
                             <td class="separator">:</td>
                             <td> <span id="bmi_n"></span></td>
                         </tr>
-                        <tr>
-                            <td colspan="3">You are <span style="font-weight: bold" id="bmi_c"></span></td>
-                        </tr>
                     </table>
+                </div>
+                <div class="col-12">
+                    <p id="bmi-cat" style="text-align: center; margin-top: 20px; font-size: 1.5em;">You are <span style="font-weight: bold" id="bmi_c"></span></p>
                 </div>
             </div>
             
@@ -251,12 +256,14 @@ $conn->close();
     
     let weightStrike = weight[0];
     let strike = 0;
+    let gainStrike = 0;
     let bestStrike = 0;
     
     if(weight.length > 1) {
         for(let i = 1; i < weight.length; i++) {
             if(weight[i] < weightStrike) {
                 strike++;
+                gainStrike = 0;
                 
                 if(strike > bestStrike) {
                     bestStrike = strike;
@@ -264,6 +271,7 @@ $conn->close();
                 
             }else{
                 strike = 0;
+                gainStrike++;
             }
             weightStrike = weight[i];
         }
@@ -302,30 +310,35 @@ $conn->close();
         persen = ((bmi-9)*satuBMIMewakili);
         $('#bmi_c').html('Overly thin');
         $('.ui-state-default').css('background', '#7c00a0');
+        $('#bmi-cat').css('color', '#7c00a0');
       }else if(bmi >= 17 && bmi <= 18.4) {
         // underweight 1
         let satuBMIMewakili = 14.2857142857;
         persen = 20 + ((bmi-17)*satuBMIMewakili);
         $('#bmi_c').html('Underweight');
         $('.ui-state-default').css('background', '#2196F3');
+        $('#bmi-cat').css('color', '#2196F3');
       }else if(bmi > 18.4 && bmi <= 25) {
         // normal
         let satuBMIMewakili = 3.07692307692;
         persen = 40 + ((bmi-18.5)*satuBMIMewakili);
         $('#bmi_c').html('Healthy');
         $('.ui-state-default').css('background', '#388E3C');
+        $('#bmi-cat').css('color', '#388E3C');
       }else if(bmi > 25 && bmi <= 27) {
           // obese 1
           let satuBMIMewakili = 10.5263157895;
           persen = 60 + ((bmi-25.1)*satuBMIMewakili);
           $('#bmi_c').html('Overweight');
           $('.ui-state-default').css('background', '#FBC02D');
+          $('#bmi-cat').css('color', '#FBC02D');
       }else if(bmi > 27 && bmi <= 35) {
         // obese 2
         let satuBMIMewakili = 2.53164556962;
         persen = 80 + ((bmi-27.1)*satuBMIMewakili);
         $('#bmi_c').html('Obese');
         $('.ui-state-default').css('background', '#E64A19');
+        $('#bmi-cat').css('color', '#E64A19');
       }
       
       $('#bmi_n').html(Math.round((bmi + Number.EPSILON) * 10) / 10);
@@ -333,6 +346,7 @@ $conn->close();
       $('#weight_n').html(lastWeight + ' kg');
       $('#best').html(Array.min(weight) + ' kg');
       $('#strike').html(strike);
+      $('#gain-strike').html(gainStrike);
       $('#best_strike').html(bestStrike);
       $('#progress').html(Math.round(((startWeight - lastWeight) + Number.EPSILON) * 100) / 100);  
       $('#to_goal').html(Math.round(((lastWeight - goal) + Number.EPSILON) * 100) / 100);

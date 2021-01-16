@@ -52,7 +52,7 @@ if($value) {
 	    $target = min($target);
 	    
 	    if($target <= round($value['real_target'], 2)) {
-	        $real_target = $target * 0.9989645;
+	        $real_target = $target * 0.99910535;
 	    }else{
 	        $real_target = $value['real_target'];
 	    }

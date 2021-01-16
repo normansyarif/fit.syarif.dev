@@ -79,15 +79,15 @@ for($i = 1; $i > -2; $i--) {
 		$temp['bmi_val'] = round($temp['weight'] / (1.63*1.63), 1);
 
 		if($temp['bmi_val'] < 17) {
-			$temp['bmi_cat'] = 'Underweight II';
+			$temp['bmi_cat'] = 'Overly thin';
 		}elseif($temp['bmi_val'] >= 17 && $temp['bmi_val'] <= 18.4) {
-		    $temp['bmi_cat'] = 'Underweight I';
+		    $temp['bmi_cat'] = 'Underweight';
 		}elseif($temp['bmi_val'] >= 18.5 && $temp['bmi_val'] <= 25) {
 			$temp['bmi_cat'] = 'Healthy';
 		}elseif($temp['bmi_val'] > 25 && $temp['bmi_val'] <= 27) {
-			$temp['bmi_cat'] = 'Obese I';
+			$temp['bmi_cat'] = 'Overweight';
 		}elseif($temp['bmi_val'] > 27) {
-			$temp['bmi_cat'] = 'Obese II';
+			$temp['bmi_cat'] = 'Obese';
 		}
 	}
 
@@ -284,12 +284,12 @@ $conn->close();
 						if($_SESSION['user'] == 'norman'):
 						?>
 						<a id="add-btn" href="javascript:void(0)" style="margin-left: 10px; margin-right: 10px">Set</a>
+						
+						<a href="glowup.php" style="margin-left: 10px; margin-right: 10px">Rules</a>
 						<?php
 						endif;
 						endif;
 					?>
-					
-					<a href="glowup.php" style="margin-left: 10px; margin-right: 10px">Rules</a>
 					
 					<a href="index.php?date=<?php echo date('Y-m-d', strtotime('+1 day', strtotime($_GET['date']))) ?>" style="margin-left: 10px">Next</a>
 				</div>
